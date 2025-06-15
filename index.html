@@ -1,44 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pop Ups Stream</title>
+  <title>Socials Pop Up</title>
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       background: transparent;
+      overflow: hidden;
+    }
+    #popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      pointer-events: none;
     }
     video {
       width: 100%;
-      height: auto;
-      display: none;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-  <video id="video" autoplay muted playsinline>
-    <source src="sub-animatie.webm" type="video/mp4">
-  </video>
+  <div id="popup">
+    <video id="popupVideo" autoplay muted playsinline>
+      <source src="sub-animatie.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
   <script>
-    const video = document.getElementById("video");
+    const popup = document.getElementById("popup");
+    const video = document.getElementById("popupVideo");
 
-    function playRandom() {
-      const delay = Math.random() * 20000 + 10000; // 10 tot 30 sec
+    function triggerRandomPopup() {
+      const delay = Math.random() * 20000 + 10000; // 10–30 sec
       setTimeout(() => {
-        video.style.display = "block";
+        popup.style.display = "block";
         video.currentTime = 0;
         video.play();
 
         video.onended = () => {
-          video.style.display = "none";
-          playRandom();
+          popup.style.display = "none";
+          triggerRandomPopup(); // start next round
         };
       }, delay);
     }
 
-    playRandom();
+    triggerRandomPopup();
   </script>
 </body>
 </html>
